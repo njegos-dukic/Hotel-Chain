@@ -1,0 +1,200 @@
+﻿<Window x:Class="LanacHotela.LanacHotelaMain"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LanacHotela" 
+        mc:Ignorable="d"
+        Title="LanacHotela" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize" >
+    <Grid>
+        <Border BorderThickness="3" BorderBrush="Gray" HorizontalAlignment="Left" Width="800"/>
+        <ScrollViewer Margin="30,30,550,30">
+            <StackPanel x:Name="stackPanel"/>
+        </ScrollViewer>
+        <TabControl Margin="280,30,30,30">
+            <TabItem x:Name="aranzmaniTab" Header="Aranzmani">
+                <Grid>
+                    <DataGrid Name = "aranzmaniDataGrid" AlternatingRowBackground = "#e0f7fa"  
+                    AlternationCount = "2" AutoGenerateColumns = "False" Height="155" VerticalAlignment="Top">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header = "Hotel" IsReadOnly="True" Binding = "{Binding HotelIme}"/>
+                            <DataGridTextColumn Header = "Ime" IsReadOnly="True" Binding = "{Binding GostIme}"/>
+                            <DataGridTextColumn Header = "Prezime" IsReadOnly="True" Binding = "{Binding GostPrezime}"/>
+                            <DataGridTextColumn Header = "Od" IsReadOnly="True" Binding = "{Binding Pocetak}"/>
+                            <DataGridTextColumn Header = "Do" IsReadOnly="True" Binding = "{Binding Kraj}"/>
+                            <DataGridCheckBoxColumn Header = "Otkazan" IsReadOnly="False" Binding = "{Binding Otkazan}"/>
+                            <DataGridCheckBoxColumn Header = "Zavrsen" IsReadOnly="False" Binding = "{Binding Zavrsen}"/>
+                            <DataGridTextColumn Header = "Soba ID" IsReadOnly="True" Binding = "{Binding SobaID}"/>
+                            <DataGridTextColumn Header = "Cijena nocenja" IsReadOnly="True" Binding = "{Binding CijenaNocenja}"/>
+                            <DataGridTextColumn Header = "Ukupno nocenja" IsReadOnly="True" Binding = "{Binding UkupnoNocenja}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <Button x:Name="addButton" Panel.ZIndex="10" Content="Dodaj" Margin="324,175,2,145" Click="AddClick"/>
+                    <Button x:Name="deleteButton" Panel.ZIndex="10" Content="Izbrisi" Margin="324,225,2,95" Click="DeleteClick"/>
+                    <Button x:Name="updateButton" Panel.ZIndex="10" Content="Azuriraj" Margin="324,275,2,45" Click="UpdateClick"/>
+                    <TextBlock Panel.ZIndex="-10" x:Name="resultTextBlock" Text="" Margin="324,330,2,0" TextWrapping="Wrap"/>
+
+                    <TextBlock Text="Pocetak: " Margin="10,165,0,5" Grid.ColumnSpan="2"/>
+                    <TextBlock Text="Kraj: " Margin="10,193,0,5" Grid.ColumnSpan="2"/>
+                    <TextBlock Text="Otkazan: " Margin="10,221,0,5" Grid.ColumnSpan="2"/>
+                    <TextBlock Text="Zavrsen: " Margin="10,247,0,5" Grid.ColumnSpan="2"/>
+                    <TextBlock Text="Hotel: " Margin="10,278,0,5" Grid.ColumnSpan="2"/>
+                    <TextBlock Text="Gost: " Margin="10,307,0,5" Grid.ColumnSpan="2"/>
+                    <TextBlock Text="Soba: " Margin="10,336,0,5" Grid.ColumnSpan="2"/>
+                    <DatePicker Text="Datum pocetka" x:Name="noviAranzmanPocetak" Margin="70,160,300,175" Grid.ColumnSpan="2"/>
+                    <DatePicker Text="Datum zavrsetka" x:Name="noviAranzmanKraj" Margin="70,190,300,145" Grid.ColumnSpan="2"/>
+                    <CheckBox Margin="70,224,300,105" x:Name="noviAranzmanJeOtkazan" Grid.ColumnSpan="2"/>
+                    <CheckBox Margin="70,249,300,85" x:Name="noviAranzmanJeZavrsen" Grid.ColumnSpan="2"/>
+                    <ComboBox x:Name="hotelsComboBox" Margin="70,273,300,64" Grid.ColumnSpan="2" SelectionChanged="HotelSelectionChanged"/>
+                    <ComboBox x:Name="guestComboBox"  Margin="70,303,300,34" Grid.ColumnSpan="2"/>
+                    <ComboBox x:Name="roomComboBox" Margin="70,333,300,4" Grid.ColumnSpan="2" />
+                </Grid>
+            </TabItem>
+
+            <TabItem x:Name="hoteliTab" Header="Hoteli">
+                <Grid>
+                    <DataGrid Name="hotelDataGrid" AlternatingRowBackground = "#e0f7fa" Margin="0,0,0,215"  
+                     AlternationCount = "2" AutoGenerateColumns = "False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header = "Hotel" IsReadOnly="False" Binding = "{Binding Ime}"/>
+                            <DataGridTextColumn Header = "Broj zvjezdica" IsReadOnly="False" Binding = "{Binding BrojZvjezdica}"/>
+                            <DataGridTextColumn Header = "Ulica" IsReadOnly="False" Binding = "{Binding Ulica}"/>
+                            <DataGridTextColumn Header = "Broj" IsReadOnly="False" Binding = "{Binding Broj}"/>
+                            <DataGridTextColumn Header = "Grad" IsReadOnly="False" Binding = "{Binding Grad}"/>
+                            <DataGridTextColumn Header = "ZIP" IsReadOnly="False" Binding = "{Binding PostanskiBroj}"/>
+                            <DataGridTextColumn Header = "Drzava" IsReadOnly="False" Binding = "{Binding Drzava}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <TextBlock Text="Ime: " Margin="10,155,0,5"/>
+                    <TextBlock Text="Zvjezdice: " Margin="10,180,0,5"/>
+                    <TextBlock Text="Kontakt: " Margin="10,205,0,5"/>
+                    <TextBlock Text="Ulica: " Margin="10,230,0,5"/>
+                    <TextBlock Text="Broj: " Margin="10,255,0,5"/>
+                    <TextBlock Text="Grad: " Margin="10,280,0,5"/>
+                    <TextBlock Text="ZIP: " Margin="10,305,0,5"/>
+                    <TextBlock Text="Drzava: " Margin="10,330,0,5"/>
+
+                    <TextBox x:Name="noviHotelIme" Margin="70,155,300,185" Grid.ColumnSpan="2"/>
+                    <ComboBox x:Name="noviHotelZvjezdice" Margin="70,180,300,160" Grid.ColumnSpan="2"/>
+                    <ComboBox x:Name="noviHotelKontakt" Margin="70,205,300,135" Grid.ColumnSpan="2"/>
+                    <TextBox Margin="70,230,300,110" x:Name="noviHotelUlica" Grid.ColumnSpan="2"/>
+                    <TextBox Margin="70,255,300,85" x:Name="noviHotelBroj" Grid.ColumnSpan="2"/>
+                    <TextBox x:Name="noviHotelGrad" Margin="70,280,300,60" Grid.ColumnSpan="2"/>
+                    <TextBox x:Name="noviHotelZIP"  Margin="70,305,300,35" Grid.ColumnSpan="2"/>
+                    <TextBox x:Name="noviHotelDrzava" Margin="70,330,300,10" Grid.ColumnSpan="2" />
+
+                    <Button x:Name="addButtonHotel" Panel.ZIndex="10" Content="Dodaj" Margin="324,175,2,145" Click="AddClickHotel"/>
+                    <Button x:Name="deleteButtonHotel" Panel.ZIndex="10" Content="Izbrisi" Margin="324,225,2,95" Click="DeleteClickHotel"/>
+                    <Button x:Name="updateButtonHotel" Panel.ZIndex="10" Content="Azuriraj" Margin="324,275,2,45" Click="UpdateClickHotel"/>
+                    <TextBlock Panel.ZIndex="-10" x:Name="rezultatHotel" Text="" Margin="324,330,2,0" TextWrapping="Wrap"/>
+                </Grid>
+            </TabItem>
+
+            <TabItem x:Name="kontaktiTab" Header="Kontakti">
+                <Grid>
+                    <DataGrid Name="kontaktiDataGrid" AlternatingRowBackground = "#e0f7fa" Margin="0,0,0,181"  
+                     AlternationCount = "2" AutoGenerateColumns = "False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header = "Kontakt" IsReadOnly="True" Binding = "{Binding KontaktID}"/>
+                            <DataGridTextColumn Header = "Tip" IsReadOnly="False" Binding = "{Binding Tip}"/>
+                            <DataGridTextColumn Header = "Info" IsReadOnly="False" Binding = "{Binding Info}"/>
+                            <DataGridTextColumn Header = "Hotel ID" IsReadOnly="False" Binding = "{Binding HotelID}"/>
+                            <DataGridTextColumn Header = "Gost ID" IsReadOnly="False" Binding = "{Binding GostID}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <TextBlock Text="Tip: " Margin="10,258,0,-21"/>
+                    <TextBlock Text="Info: " Margin="10,282,0,-21"/>
+
+                    <ComboBox x:Name="noviKontaktTip" Margin="70,256,300,84"/>
+                    <TextBox x:Name="noviKontaktInfo" Margin="70,281,300,59"/>
+
+                    <Button x:Name="dodajKontaktButton" Panel.ZIndex="10" Content="Dodaj" Margin="324,195,2,125" Click="AddClickContact"/>
+                    <Button x:Name="obrisiKontaktButton" Panel.ZIndex="10" Content="Izbrisi" Margin="324,245,2,75" Click="DeleteClickContact"/>
+                    <Button x:Name="azurirajKontaktButton" Panel.ZIndex="10" Content="Azuriraj" Margin="324,295,2,25" Click="UpdateClickContact"/>
+                    <TextBlock Panel.ZIndex="-10" x:Name="rezultatTextKontakt" Text="" Margin="324,340,2,0" TextWrapping="Wrap"/>
+                </Grid>
+            </TabItem>
+
+            <TabItem x:Name="sobeTab" Header="Sobe">
+                <Grid>
+                    <DataGrid Name="sobeDataGrid" AlternatingRowBackground = "#e0f7fa"  
+                     AlternationCount = "2" AutoGenerateColumns = "False" Margin="0,0,0,201">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header = "Soba ID" IsReadOnly="True" Binding = "{Binding SobaID}"/>
+                            <DataGridTextColumn Header = "Hotel" IsReadOnly="True" Binding = "{Binding HotelID}"/>
+                            <DataGridTextColumn Header = "Broj sprata" IsReadOnly="False" Binding = "{Binding BrojSprata}"/>
+                            <DataGridTextColumn Header = "Broj sobe" IsReadOnly="False" Binding = "{Binding BrojSobe}"/>
+                            <DataGridTextColumn Header = "Broj kreveta" IsReadOnly="False" Binding = "{Binding BrojKreveta}"/>
+                            <DataGridCheckBoxColumn Header = "Ima TV" IsReadOnly="False" Binding = "{Binding ImaTV}"/>
+                            <DataGridCheckBoxColumn Header = "Ima klimu" IsReadOnly="False" Binding = "{Binding ImaKlimu}"/>
+                            <DataGridTextColumn Header = "Cijena nocenja" IsReadOnly="False" Binding = "{Binding CijenaNocenja}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <TextBlock Text="Hotel" Margin="10,175,0,5"/>
+                    <TextBlock Text="Broj sprata: " Margin="10,200,0,5"/>
+                    <TextBlock Text="Broj sobe: " Margin="10,225,0,5"/>
+                    <TextBlock Text="Broj kreveta: " Margin="10,250,0,5"/>
+                    <TextBlock Text="Ima TV: " Margin="10,275,0,5"/>
+                    <TextBlock Text="Ima klimu: " Margin="10,300,0,5"/>
+                    <TextBlock Text="Cijena nocenja: " Margin="10,325,0,5"/>
+
+                    <ComboBox x:Name="novaSobaHotel" Margin="100,175,270,165" Grid.ColumnSpan="2"/>
+                    <TextBox x:Name="novaSobaBrojSprata" Margin="100,200,270,140" Grid.ColumnSpan="2"/>
+                    <TextBox x:Name="novaSobaBrojSobe" Margin="100,225,270,115" Grid.ColumnSpan="2"/>
+                    <TextBox Margin="100,250,270,90" x:Name="novaSobaBrojKreveta" Grid.ColumnSpan="2"/>
+                    <CheckBox Margin="100,278,270,65" x:Name="NovaSobaImaTV" Grid.ColumnSpan="2"/>
+                    <CheckBox x:Name="novaSobaImaKlimu" Margin="100,303,270,40" Grid.ColumnSpan="2"/>
+                    <TextBox x:Name="novaSobaCijenaNocenja"  Margin="100,325,270,15" Grid.ColumnSpan="2"/>
+
+                    <Button x:Name="addButtonSobe" Panel.ZIndex="10" Content="Dodaj" Margin="324,175,2,145" Click="AddClickSobe"/>
+                    <Button x:Name="deleteButtonSobe" Panel.ZIndex="10" Content="Izbrisi" Margin="324,225,2,95" Click="DeleteClickSobe"/>
+                    <Button x:Name="updateButtonSobe" Panel.ZIndex="10" Content="Azuriraj" Margin="324,275,2,45" Click="UpdateClickSobe"/>
+                    <TextBlock Panel.ZIndex="-10" x:Name="rezultatSobe" Text="" Margin="324,330,2,0" TextWrapping="Wrap"/>
+                </Grid>
+            </TabItem>
+
+            <TabItem x:Name="gostiTab" Header="Gosti">
+                <Grid>
+                    <DataGrid Name="gostiDataGrid" AlternatingRowBackground = "#e0f7fa"  
+                     AlternationCount = "2" AutoGenerateColumns = "False" Margin="0,0,0,201">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header = "Gost ID" IsReadOnly="True" Binding = "{Binding GostID}"/>
+                            <DataGridTextColumn Header = "JMBG" IsReadOnly="False" Binding = "{Binding JMBG}"/>
+                            <DataGridTextColumn Header = "Ime" IsReadOnly="False" Binding = "{Binding Ime}"/>
+                            <DataGridTextColumn Header = "Prezime" IsReadOnly="False" Binding = "{Binding Prezime}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <TextBlock Text="JMBG: " Margin="10,205,0,5"/>
+                    <TextBlock Text="Ime: " Margin="10,230,0,5"/>
+                    <TextBlock Text="Prezime: " Margin="10,255,0,5"/>
+
+                    <TextBox x:Name="noviGostJMBG" Margin="100,205,270,135" Grid.ColumnSpan="2"/>
+                    <TextBox Margin="100,230,270,110" x:Name="noviGostIme" Grid.ColumnSpan="2"/>
+                    <TextBox Margin="100,255,270,85" x:Name="noviGostPrezime" Grid.ColumnSpan="2"/>
+
+                    <Button x:Name="addButtonGost" Panel.ZIndex="10" Content="Dodaj" Margin="324,175,2,145" Click="AddClickGost"/>
+                    <Button x:Name="deleteButtonGost" Panel.ZIndex="10" Content="Izbrisi" Margin="324,225,2,95" Click="DeleteClickGost"/>
+                    <Button x:Name="updateButtonSobeGost" Panel.ZIndex="10" Content="Azuriraj" Margin="324,275,2,45" Click="UpdateClickGost"/>
+                    <TextBlock Panel.ZIndex="-10" x:Name="rezultatGost" Text="" Margin="324,330,2,0" TextWrapping="Wrap"/>
+                </Grid>
+            </TabItem>
+
+            <TabItem x:Name="finansijeTab" Header="Finansije">
+                <DataGrid Name="finansijeDataGrid" AlternatingRowBackground = "#e0f7fa"  
+                 AlternationCount = "2" AutoGenerateColumns = "False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header = "Hotel" IsReadOnly="True" Binding = "{Binding ImeHotela}"/>
+                        <DataGridTextColumn Header = "Ukupno nocenja" IsReadOnly="True" Binding = "{Binding UkupnoNocenja}"/>
+                        <DataGridTextColumn Header = "Ukupna zarada" IsReadOnly="True" Binding = "{Binding UkupnaZarada}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
